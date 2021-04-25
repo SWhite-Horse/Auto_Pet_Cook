@@ -1,0 +1,170 @@
+{
+    "compiler": {
+        "type": "GCC-Scons",
+        "path": ".\\tools\\hi3861\\hcc_riscv32_win\\bin",
+        "make": {
+            "path": "",
+            "script": "d:\\Works\\Hi_Works\\Auto_Pet_Cook\\SConstruct",
+            "args": "-j 32"
+        },
+        "prefix": "riscv32-unknown-elf"
+    },
+    "output": {
+        "name": "Hi3861_demo_burn.bin",
+        "path": ".\\output\\bin\\Hi3861_demo_burn.bin",
+        "assmableFile": ".\\output\\bin\\Hi3861_demo.asm",
+        "executable": ".\\output\\bin\\Hi3861_demo.out",
+        "burnPaths": [
+            ".\\output\\bin\\Hi3861_boot_signed.bin",
+            ".\\output\\bin\\Hi3861_boot_signed_B.bin",
+            ".\\output\\bin\\Hi3861_demo_flash_boot_ota.bin",
+            ".\\output\\bin\\Hi3861_loader_signed.bin",
+            ".\\output\\bin\\Hi3861_demo_allinone.bin",
+            ".\\output\\bin\\Hi3861_demo_ota.bin",
+            ".\\output\\bin\\Hi3861_demo_burn.bin"
+        ],
+        "debugPaths": [
+            ".\\output\\bin\\Hi3861_demo.out"
+        ],
+        "asmPaths": [
+            ".\\output\\bin\\Hi3861_demo.asm"
+        ]
+    },
+    "target": {
+        "UUID": "4422b3af-ac89-4410-88a8-f0b962428569",
+        "flag": "0",
+        "factory": "HiSilicon",
+        "boardName": "Hi3861V100",
+        "productName": "WiFi IoT",
+        "core": "LinxCore131",
+        "numberCores": 1,
+        "flashSize": "",
+        "romAddress": "",
+        "ramSize": "",
+        "ramAddress": "",
+        "restartAddress": "",
+        "featuresAddress": "",
+        "dataSheetAddress": "",
+        "operation": ""
+    },
+    "debugger": {
+        "type": "OpenOCD",
+        "path": "C:\\Users\\SQ\\.huawei-liteos-studio\\tools\\hi3861\\openocd\\bin\\",
+        "jlink": {
+            "interface": "JTAG",
+            "speed": "8000",
+            "path": "C:\\Program Files (x86)\\SEGGER\\JLink",
+            "port": "USB"
+        },
+        "interface": "JTAG",
+        "initType": "launch",
+        "initFile": ".vscode\\attach.gdbinit",
+        "compileOS": "Windows",
+        "compilePath": null,
+        "gdbPath": ".\\tools\\hi3861\\hcc_riscv32_win\\bin",
+        "interfacescript": [
+            "scripts\\interface\\Hi-ft2232d-ftdi.cfg",
+            "scripts\\interface\\Hi-ft2232d-ftdi-swd.cfg"
+        ],
+        "interfacedir": "scripts\\interface\\Hi-ft2232d-ftdi.cfg",
+        "targetscript": [
+            "scripts\\target\\Hi3861-RISCV\\Hi3861-RISCV-JTAG",
+            "scripts\\target\\Hi3861-RISCV\\Hi3861-RISCV-SWD-CORESIGHT"
+        ],
+        "targetdir": "scripts\\target\\Hi3861-RISCV\\Hi3861-RISCV-JTAG"
+    },
+    "burner": {
+        "type": "OpenOCD",
+        "path": "C:\\Users\\SQ\\.huawei-liteos-studio\\tools\\hi3861\\openocd\\bin\\",
+        "speed": "2000",
+        "interface": "JTAG",
+        "flashAddress": "",
+        "loadAddress": "0x400000",
+        "interfacescript": [
+            "scripts\\interface\\Hi-ft2232d-ftdi.cfg",
+            "scripts\\interface\\Hi-ft2232d-ftdi-swd.cfg"
+        ],
+        "interfacedir": "scripts\\interface\\Hi-ft2232d-ftdi.cfg",
+        "targetscript": [
+            "scripts\\target\\Hi3861-RISCV\\Hi3861-RISCV-JTAG",
+            "scripts\\target\\Hi3861-RISCV\\Hi3861-RISCV-SWD-CORESIGHT"
+        ],
+        "targetdir": "scripts\\target\\Hi3861-RISCV\\Hi3861-RISCV-JTAG"
+    },
+    "information": {
+        "UUID": "4422b3af-ac89-4410-88a8-f0b962428569",
+        "flag": "0",
+        "factory": "HiSilicon",
+        "boardName": "Hi3861V100",
+        "productName": "WiFi IoT",
+        "core": "LinxCore131",
+        "numberCores": 1,
+        "flashSize": "",
+        "romAddress": "",
+        "ramSize": "",
+        "ramAddress": "",
+        "restartAddress": "",
+        "featuresAddress": "",
+        "dataSheetAddress": ""
+    },
+    "serialPort": {
+        "port": "COM17",
+        "baudRate": "921600",
+        "dataBit": 8,
+        "stopBit": 1,
+        "parity": "None",
+        "flowControl": "None"
+    },
+    "mcuChildExtension": {
+        "active": "false"
+    },
+    "component": {
+        "CE Authentication": "Y",
+        "COAP support": "N",
+        "DMA driver support": "N",
+        "ECC": "N",
+        "Enable AT command": "N",
+        "Enable DHCP Hostname (Option12)": "N",
+        "Enable DHCP Vendorname (Option60)": "N",
+        "Enable MESH(only apply in WIFI CHIP_PKT_32K)": "N",
+        "Enable Option Router (Option3)": "Y",
+        "Enable WPA3": "N",
+        "Enable WPS": "N",
+        "Enable bootloader encryption": "N",
+        "Enable debug log": "N",
+        "Enable file system": "N",
+        "Enable quick send mode": "N",
+        "Enable uart0 IO mux config": "Y",
+        "Enable uart1 IO mux config": "Y",
+        "Enable uart2 IO mux config": "Y",
+        "FCC Authentication": "N",
+        "FLASH ENCRYPT support(only apply in WIFI CHIP_PKT_32K)": "N",
+        "Hi3861": "Y",
+        "Hi3861L": "N",
+        "HiLink support": "N",
+        "Lwip Support Lowpower Mode": "N",
+        "MQTT support": "N",
+        "Max Power": "N",
+        "PWM driver support": "Y",
+        "PWM hold after reboot": "Y",
+        "RSA_PSS": "N",
+        "RSA_V15": "N",
+        "SDIO driver support": "N",
+        "SHA256": "Y",
+        "SPI driver support": "N",
+        "SPI support DMA": "N",
+        "TEE HUKS demo support": "N",
+        "TEE HUKS support": "N",
+        "UART support DMA": "Y",
+        "boot ver(value form 0 to 16)": "0",
+        "cJson nest limit size": "1000",
+        "cJson support": "N",
+        "compression ota support": "Y",
+        "dual-partition ota support": "N",
+        "factory test enable": "N",
+        "i2c driver support": "Y",
+        "i2s driver support": "N",
+        "iperf support": "Y",
+        "kernel ver(value form 0 to 48)": "0"
+    }
+}

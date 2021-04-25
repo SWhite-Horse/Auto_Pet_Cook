@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Openocd Debug",
+            "cwd": "${workspaceRoot}",
+            "executable": ".\\output\\bin\\Hi3861_demo.out",
+            "request": "launch",
+            "type": "liteos-studio-debug",
+            "servertype": "openocd",
+            "device": "Risc-V",
+            "configFiles": [
+                "scripts\\interface\\Hi-ft2232d-ftdi.cfg",
+                "scripts\\target\\Hi3861-RISCV\\Hi3861-RISCV-JTAG"
+            ],
+            "postLaunchCommands": [
+                "hb app_main",
+                "continue"
+            ]
+        }
+    ]
+}
