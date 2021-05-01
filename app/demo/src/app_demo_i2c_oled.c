@@ -389,7 +389,7 @@ hi_u8  *flaot_to_string_gas(hi_double d, hi_u8 *str)
 hi_void oled_display_init(hi_void)
 {
     oled_fill_screen(OLED_CLEAN_SCREEN);//clean screen 
-    oled_show_str(20,3, "Hello World",1);
+    oled_show_str(18,3, "Hello World scp",1);
 }
 
 /* oled screen demo display */

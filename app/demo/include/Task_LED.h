@@ -5,7 +5,7 @@
 #include "Task_Init.h"
 
 
-hi_void *Task_LED(hi_void *);
+void *Task_LED(void *);
 
 
 #endif

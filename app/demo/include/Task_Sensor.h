@@ -4,6 +4,6 @@
 
 #include "Task_Init.h"
 
-hi_void *Task_Sensor(hi_void *);
+void *Task_Sensor(void *);
 
 #endif

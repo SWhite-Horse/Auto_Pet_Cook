@@ -5,7 +5,7 @@
 #include <hi_watchdog.h>
 #include <hi_task.h>
 
-#define LED_LIGHT_DELAY_1S       (1000*1000)
+#define LED_LIGHT_DELAY_1S       (1000*500)
 #define hi_unuse_param(p)           ((p) = (p))
 #define LED_CONTROL_TASK_SLEEP_20MS (20)
 #define LED_CONTROL_TASK_SIZE       (1024)

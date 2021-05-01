@@ -74,8 +74,8 @@
         "targetdir": "scripts\\target\\Hi3861-RISCV\\Hi3861-RISCV-JTAG"
     },
     "burner": {
-        "type": "OpenOCD",
-        "path": "C:\\Users\\SQ\\.huawei-liteos-studio\\tools\\hi3861\\openocd\\bin\\",
+        "type": "HiBurner",
+        "path": ".\\tools\\hi3861\\hiburn",
         "speed": "2000",
         "interface": "JTAG",
         "flashAddress": "",
@@ -108,8 +108,8 @@
         "dataSheetAddress": ""
     },
     "serialPort": {
-        "port": "COM17",
-        "baudRate": "921600",
+        "port": "COM5",
+        "baudRate": "115200",
         "dataBit": 8,
         "stopBit": 1,
         "parity": "None",
@@ -131,7 +131,7 @@
         "Enable WPA3": "N",
         "Enable WPS": "N",
         "Enable bootloader encryption": "N",
-        "Enable debug log": "N",
+        "Enable debug log": "Y",
         "Enable file system": "N",
         "Enable quick send mode": "N",
         "Enable uart0 IO mux config": "Y",

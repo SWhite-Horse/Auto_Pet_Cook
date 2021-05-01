@@ -4,6 +4,7 @@
 
 #include "Task_Init.h"
 
-hi_void *Task_Communication(hi_void *);
+void *Task_Communication(void *);
+void Uart_Init(hi_uart_idx id);
 
 #endif

@@ -1,5 +1,5 @@
 #include "app_main.h"
-#include "Task_Init.h"
+
 #include <hi3861_platform.h>
 #include <hi_mdm.h>
 #include <hi_flash.h>
@@ -10,6 +10,9 @@
 #include <hi_sal.h>
 #include <hi_shell.h>
 #include <app_hello_world.h>
+
+#include "Task_Init.h"
+
 #ifdef OHOS_SUPPORT
 #include <hos_init.h>
 #endif
@@ -539,8 +542,8 @@ hi_void app_main(hi_void)
     NetCfgSampleBiz();
 #endif
 #endif
-    Task_Init();
 
+Task_Init();
 //hispark_pegasus_hello_world();
 
 }
