@@ -10,6 +10,7 @@
 #include <hi_sal.h>
 #include <hi_shell.h>
 #include <app_hello_world.h>
+#include <app_demo_uart.h>
 
 #include "Task_Init.h"
 
@@ -543,6 +544,7 @@ hi_void app_main(hi_void)
 #endif
 #endif
 
+//uart_demo();
 Task_Init();
 //hispark_pegasus_hello_world();
 

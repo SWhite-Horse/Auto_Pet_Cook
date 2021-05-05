@@ -4,25 +4,6 @@ int Sensor_num = 0;
 
 
 /**  
- * @brief 压力传感器（或者还有其它）信息处理任务
- * @param  void
- * @attention
- * @retval void
-**/
-void *Task_Sensor(void * param){
-    hi_unuse_param(param);
-    for(;;){
-        Sensor_num++;
-        printf("Task_Sensor_Working!\n");
-        hi_sleep(20);
-    }
-    if (hi_task_delete(task_sensor_id) != HI_ERR_SUCCESS) {
-        printf("Failed to delete task sensor\r\n");
-    }
-}
-
-
-/**  
  * @brief 创建压力传感器信号处理任务
  * @param  void
  * @attention
@@ -40,4 +21,22 @@ void Task_Sensor_Create(void){
     return HI_ERR_SUCCESS;
 }
 
+
+/**  
+ * @brief 压力传感器（或者还有其它）信息处理任务
+ * @param  void
+ * @attention
+ * @retval void
+**/
+void *Task_Sensor(void * param){
+    hi_unuse_param(param);
+    for(;;){
+        Sensor_num++;
+        printf("Task_Sensor_Working!\n");
+        hi_sleep(20);
+    }
+    if (hi_task_delete(task_sensor_id) != HI_ERR_SUCCESS) {
+        printf("Failed to delete task sensor\r\n");
+    }
+}
 

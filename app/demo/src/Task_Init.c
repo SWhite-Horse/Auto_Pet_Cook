@@ -4,6 +4,7 @@ hi_u32 task_led_id;
 hi_u32 task_motor_id;
 hi_u32 task_sensor_id;
 hi_u32 task_communication_id;
+hi_u32 task_uart_id;
 
 int Init_sum = 0;
 
@@ -16,13 +17,8 @@ int Init_sum = 0;
 **/
 void Task_Init(void){
 // ******* 外设初始化区域 ******** //
-    Uart_Init(HI_UART_IDX_2); // 初始化 UART2 与3516通信
+    Uart_Init(HI_UART_IDX_1); // 初始化 UART2 与3516通信
     hi_gpio_init();     // 底层 io 口初始化
-    // if ( Motor_GPIO_Init()) {
-    //     printf("MOTOR GPIO INIT ERROR !");
-    //     return;
-    // } // 舵机控制的GPIO口的初始化
-    // else printf("GPIO INIT SUCCESS!");
 
 // ******* 任务初始化区域 ******** //
     hi_task_lock();
@@ -30,7 +26,9 @@ void Task_Init(void){
     Task_LED_Create();
     Task_Motor_Create();
     Task_Sensor_Create();
+    Task_Uart_Create();
     Task_Communication_Create();
+
     Init_sum ++;
     hi_task_unlock();
 

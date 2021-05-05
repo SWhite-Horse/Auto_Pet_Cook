@@ -29,6 +29,7 @@ static hi_void *uart_demo_task(hi_void *param)
         if (len > 0) {
 #ifdef WRITE_BY_INT
             hi_uart_write(DEMO_UART_NUM, uart_buff_ptr, len);
+            printf("successful!");
 #else
             hi_uart_write_immediately(DEMO_UART_NUM, uart_buff_ptr, len);
 #endif
