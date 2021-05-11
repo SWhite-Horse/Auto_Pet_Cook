@@ -2,6 +2,12 @@
 #ifndef __TASK_INIT_H__
 #define __TASK_INIT_H__
 
+
+#include <stdarg.h>
+#include <stdint.h>
+#include <stddef.h>
+#include <stdio.h>
+#include <app_demo_uart.h>
 #include <hi_types_base.h>
 #include <hi_gpio.h>
 #include <hi_early_debug.h>
@@ -16,6 +22,8 @@
 #include <hi_task.h>
 #include <hi_time.h>
 #include <hi_timer.h>
+#include <hi_stdlib.h>
+
 
 #include "Task_LED.h"
 #include "Task_Motor.h"

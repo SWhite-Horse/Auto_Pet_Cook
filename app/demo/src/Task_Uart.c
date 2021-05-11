@@ -72,4 +72,3 @@ void Uart_Init(hi_uart_idx id){
         return;
     }
 }
-

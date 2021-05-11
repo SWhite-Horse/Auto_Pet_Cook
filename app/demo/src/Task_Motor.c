@@ -3,6 +3,7 @@
 int Motor_num = 1; // Debug
 hi_u8 reg; // Debug
 hi_gpio_dir dir; // Debug
+extern Motor_status_enum Motor_Left_Status, Motor_Right_Status, Motor_Up_Status;
 
 
 /**  
@@ -33,26 +34,26 @@ void Task_Motor_Create(void){
 **/
 void *Task_Motor(void * param){
     hi_unuse_param(param);
-    static hi_u8 status = 0;
+    
     for(;;){
         Motor_num++;
-        if(Motor_num % 30 == 0) status = status ? 0 : 1 ;
-        printf("%d\t%d\n", Motor_num, status);
-        // Motor_control(Motor_CCW);
-        if(status) {
-            Motor_control(Motor_CW, Motor_Left);
+        /* 右侧电机控制 */
+        if(Motor_Right_Status == MOTOR_DOWN_CAT_BACK)
             Motor_control(Motor_CW, Motor_Right);
-            Motor_control(Motor_CW, Motor_Up);
-
-        }
-        else{
-            Motor_control(Motor_CCW, Motor_Left);
+        else
             Motor_control(Motor_CCW, Motor_Right);
+        /* 左侧电机控制 */
+        if(Motor_Left_Status == MOTOR_DOWN_DOG_BACK)
+            Motor_control(Motor_CW, Motor_Left);
+        else
+            Motor_control(Motor_CCW, Motor_Left);
+        /* UP电机控制 */
+        if(Motor_Up_Status == MOTOR_UP_DOG)
+            Motor_control(Motor_CW, Motor_Up);
+        else if(Motor_Up_Status == MOTOR_UP_CAT)
             Motor_control(Motor_CCW, Motor_Up);
-
-        } 
-
-        
+        else 
+            Motor_control(Motor_Stop, Motor_Up);
         hi_sleep(20);
     }
     if (hi_task_delete(task_motor_id) != HI_ERR_SUCCESS) {
@@ -91,7 +92,7 @@ void Motor_GPIO_Init(){
  * @attention LED4  --- GPIO12 --- 超声波 
  * @retval void
 **/
-hi_u8 Motor_control(Motor_status_enum motor_status, Motor_ID_enum motor_id){
+hi_u8 Motor_control(Motor_status_dir_enum motor_status, Motor_ID_enum motor_id){
     switch (motor_id)
     {
     case Motor_Left:
@@ -120,8 +121,16 @@ hi_u8 Motor_control(Motor_status_enum motor_status, Motor_ID_enum motor_id){
  * @attention
  * @retval void
 **/
-void Motor_Enable(Motor_status_enum motor_status, hi_io_name motor_name, hi_u8 func, hi_gpio_idx motor_id){
+void Motor_Enable(Motor_status_dir_enum motor_status, hi_io_name motor_name, hi_u8 func, hi_gpio_idx motor_id){
     if(motor_status == Motor_Stop){
+        hi_io_set_func(motor_name, func); // 设置此GPIO的功能
+        hi_gpio_set_dir(motor_id, HI_GPIO_DIR_OUT); // 设置输出 为 out 模式
+
+        /* 此下两个delay分别是高和低电平延迟的时间 */
+        hi_gpio_set_ouput_val(motor_id, HI_GPIO_VALUE1);
+        hi_udelay(1300); 
+        hi_gpio_set_ouput_val(motor_id, HI_GPIO_VALUE0);      
+        hi_udelay(20000 - 1300);
     }
     else if(motor_status == Motor_CW){
         hi_io_set_func(motor_name, func); // 设置此GPIO的功能
