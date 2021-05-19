@@ -5,5 +5,6 @@
 #include "Task_Init.h"
 
 void *Task_Sensor(void *);
+extern hi_u16 Pressed_data; 
 
 #endif

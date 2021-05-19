@@ -23,7 +23,9 @@
 #include <hi_time.h>
 #include <hi_timer.h>
 #include <hi_stdlib.h>
-
+#include <hi_adc.h>
+#include "app_demo_uart.h"
+#include "hisignalling_protocol.h"
 
 #include "Task_LED.h"
 #include "Task_Motor.h"

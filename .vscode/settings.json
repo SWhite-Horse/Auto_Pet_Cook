@@ -4,5 +4,9 @@
     "liteos-studio-debug.armToolchainPrefix": "riscv32-unknown-elf",
     "C_Cpp.default.compilerPath": "tools\\hi3861\\hcc_riscv32_win\\bin\\riscv32-unknown-elf-gcc.exe",
     "C_Cpp.default.cStandard": "c99",
-    "C_Cpp.default.intelliSenseMode": "gcc-arm"
+    "C_Cpp.default.intelliSenseMode": "gcc-arm",
+    "files.associations": {
+        "array": "c",
+        "string": "c"
+    }
 }

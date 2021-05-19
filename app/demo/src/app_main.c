@@ -1,4 +1,21 @@
+/*
+ * Copyright (c) 2020 HiSilicon (Shanghai) Technologies CO., LIMITED.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 #include "app_main.h"
+
+#include "Task_Init.h"
 
 #include <hi3861_platform.h>
 #include <hi_mdm.h>
@@ -9,11 +26,6 @@
 #include <hi_crash.h>
 #include <hi_sal.h>
 #include <hi_shell.h>
-#include <app_hello_world.h>
-#include <app_demo_uart.h>
-
-#include "Task_Init.h"
-
 #ifdef OHOS_SUPPORT
 #include <hos_init.h>
 #endif
@@ -62,6 +74,9 @@
 
 #include <hi_tsensor.h>
 #include <app_io_init.h>
+
+#include <hisignalling_protocol.h>
+#include <app_demo_uart.h>
 
 #define APP_DEMO_RELEASE_MEM_TASK_SIZE 0x200
 /*
@@ -381,56 +396,6 @@ hi_u32 config_after_sleep(hi_void)
     }
     return HI_ERR_SUCCESS;
 }
-hi_u32 z = 0;
-
-static hi_void *app_demo_task_second_body(hi_void *param)
-{
-    /* Releases the app_main stack memory. */
-    hi_unref_param(param);
-
-    for (z = 0; z < 3; z++) {
-        hi_udelay(2000);
-    }
-    return HI_NULL;
-}
-
-static hi_void *app_demo_task_body(hi_void *param)
-{
-    /* Releases the app_main stack memory. */
-    hi_unref_param(param);
-
-    hi_u32 task_id = 0;
-    hi_task_attr attr = {0};
-    attr.stack_size = APP_DEMO_RELEASE_MEM_TASK_SIZE;
-    attr.task_prio = APP_DEMO_RELEASE_MEM_TASK_PRIO;
-    attr.task_name = (hi_char*)"app_demo_second";
-    hi_u32 ret = hi_task_create(&task_id, &attr, app_demo_task_second_body, HI_NULL);
-    if (ret != HI_ERR_SUCCESS) {
-        printf("Falied to create app_demo_second task:0x%x\n", ret);
-    }
-    hi_sleep(9000);
-    for (z = 0; z < 3; z++) {
-        hi_udelay(2000);
-    }
-
-    return HI_NULL;
-}
-
-hi_void app_demo_task_release_mem(hi_void)
-{
-    /* Releases the app_main stack memory. */
-    hi_u32 task_id = 0;
-    hi_task_attr attr = {0};
-    attr.stack_size = APP_DEMO_RELEASE_MEM_TASK_SIZE;
-    attr.task_prio = APP_DEMO_RELEASE_MEM_TASK_PRIO;
-    attr.task_name = (hi_char*)"app_demo";
-    hi_u32 ret = hi_task_create(&task_id, &attr, app_demo_task_body, HI_NULL);
-    if (ret != HI_ERR_SUCCESS) {
-        printf("Falied to create app_demo task:0x%x\n", ret);
-    }
-    return;
-}
-
 
 #ifndef CONFIG_QUICK_SEND_MODE
 hi_void app_main(hi_void)
@@ -543,10 +508,10 @@ hi_void app_main(hi_void)
     NetCfgSampleBiz();
 #endif
 #endif
-
-//uart_demo();
-Task_Init();
-//hispark_pegasus_hello_world();
-
+    /*hisignaling protocol task*/
+    //hisignaling_msg_task();
+    Task_Init();
+    /*uart task*/
+    //uart_demo();
 }
 #endif

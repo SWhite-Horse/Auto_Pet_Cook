@@ -33,7 +33,7 @@ void *Task_LED(void *param){
     hi_unuse_param(param);
     for(;;){
         LED_num++;
-        printf("Task_LED_Working!\n");
+        //printf("Task_LED_Working!\n");
         hi_sleep(20);
     }
     if (hi_task_delete(task_led_id) != HI_ERR_SUCCESS) {

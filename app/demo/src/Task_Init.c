@@ -17,7 +17,7 @@ int Init_sum = 0;
 **/
 void Task_Init(void){
 // ******* 外设初始化区域 ******** //
-    Uart_Init(HI_UART_IDX_1); // 初始化 UART2 与3516通信
+    //Uart_Init(HI_UART_IDX_1); // 初始化 UART2 与3516通信
     hi_gpio_init();     // 底层 io 口初始化
 
 // ******* 任务初始化区域 ******** //
@@ -26,8 +26,10 @@ void Task_Init(void){
     Task_LED_Create();
     Task_Motor_Create();
     Task_Sensor_Create();
-    Task_Uart_Create();
-    Task_Communication_Create();
+    //hisignaling_msg_task();
+    //uart_demo();
+    //Task_Uart_Create();
+    //Task_Communication_Create();
 
     Init_sum ++;
     hi_task_unlock();

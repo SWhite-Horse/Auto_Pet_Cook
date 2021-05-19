@@ -25,7 +25,7 @@ void Task_Motor_Create(void){
 }
 
 
-
+int status = 0;
 /**  
  * @brief 电机控制任务
  * @param  void
@@ -37,23 +37,38 @@ void *Task_Motor(void * param){
     
     for(;;){
         Motor_num++;
-        /* 右侧电机控制 */
-        if(Motor_Right_Status == MOTOR_DOWN_CAT_BACK)
-            Motor_control(Motor_CW, Motor_Right);
-        else
-            Motor_control(Motor_CCW, Motor_Right);
-        /* 左侧电机控制 */
-        if(Motor_Left_Status == MOTOR_DOWN_DOG_BACK)
+        if(Motor_num % 30 == 0) status = status ? 0 : 1 ;
+        if(status) {
+            printf("CW\n");
             Motor_control(Motor_CW, Motor_Left);
-        else
-            Motor_control(Motor_CCW, Motor_Left);
-        /* UP电机控制 */
-        if(Motor_Up_Status == MOTOR_UP_DOG)
+            Motor_control(Motor_CW, Motor_Right);
             Motor_control(Motor_CW, Motor_Up);
-        else if(Motor_Up_Status == MOTOR_UP_CAT)
+
+        }
+        else{
+            Motor_control(Motor_CCW, Motor_Left);
+            Motor_control(Motor_CCW, Motor_Right);
             Motor_control(Motor_CCW, Motor_Up);
-        else 
-            Motor_control(Motor_Stop, Motor_Up);
+
+        } 
+
+        // /* 右侧电机控制 */
+        // if(Motor_Right_Status == MOTOR_DOWN_CAT_BACK)
+        //     Motor_control(Motor_CW, Motor_Right);
+        // else
+        //     Motor_control(Motor_CCW, Motor_Right);
+        // /* 左侧电机控制 */
+        // if(Motor_Left_Status == MOTOR_DOWN_DOG_BACK)
+        //     Motor_control(Motor_CW, Motor_Left);
+        // else
+        //     Motor_control(Motor_CCW, Motor_Left);
+        // /* UP电机控制 */
+        // if(Motor_Up_Status == MOTOR_UP_DOG)
+        //     Motor_control(Motor_CW, Motor_Up);
+        // else if(Motor_Up_Status == MOTOR_UP_CAT)
+        //     Motor_control(Motor_CCW, Motor_Up);
+        // else 
+        //     Motor_control(Motor_Stop, Motor_Up);
         hi_sleep(20);
     }
     if (hi_task_delete(task_motor_id) != HI_ERR_SUCCESS) {
@@ -151,7 +166,7 @@ void Motor_Enable(Motor_status_dir_enum motor_status, hi_io_name motor_name, hi_
         hi_udelay(500);
         hi_gpio_set_ouput_val(motor_id, HI_GPIO_VALUE0);
         hi_udelay(20000 - 500);
-        printf("CCW\n");
+        //printf("CCW\n");
 
     }
 }

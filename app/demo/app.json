@@ -2,7 +2,8 @@
     "TARGET_LIB": "demo",
     "APP_SRCS": [
         "init",
-        "src"
+        "src",
+        "hisignaling"
     ],
     "INCLUDE": [
         "components/iperf2/include",
@@ -15,7 +16,9 @@
         "components/ripple/exports",
         "components/hilink/include",
         "third_party/mbedtls/include/mbedtls/",
-        "include/OHOS"
+        "include/OHOS",
+        "components/histreaming/src",
+        "app/demo/hisignaling"
     ],
     "CC_FLAGS": [
         "-g"

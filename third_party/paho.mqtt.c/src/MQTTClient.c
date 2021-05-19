@@ -2579,7 +2579,7 @@ void MQTTClient_yield(void)
 {
 	START_TIME_TYPE start = MQTTClient_start_clock();
 	unsigned long elapsed = 0L;
-	unsigned long timeout = 1000L;
+	unsigned long timeout = 100L;
 	int rc = 0;
 
 	FUNC_ENTRY;

@@ -12,11 +12,24 @@ hi_s32   Uart_Rec_Buff_len = 0; // 记录一次帧长度
  * @retval void
 **/
 void Task_Uart_Create(void){
-    hi_task_attr uart_attr = {0};
-    uart_attr.stack_size = 2048;
-    uart_attr.task_prio = 24;
-    uart_attr.task_name = (hi_char*)"task_uart";
-    if (hi_task_create(&task_uart_id, &uart_attr, Task_Uart, HI_NULL) != HI_ERR_SUCCESS) {
+
+    hi_uart_attribute uart_attr = {
+        .baud_rate = 115200, /* baud_rate: 115200 */
+        .data_bits = 8,      /* data_bits: 8bits */
+        .stop_bits = 1,
+        .parity = 0,
+    };
+    hi_u32 temp = hi_uart_init(HI_UART_IDX_1, &uart_attr, HI_NULL); // UART2
+    if (temp != HI_ERR_SUCCESS) {
+        printf("Failed to init uart! Err code = %d\n", temp);
+        return;
+    }
+
+    hi_task_attr uart_task_attr = {0};
+    uart_task_attr.stack_size = 2048;
+    uart_task_attr.task_prio = 25;
+    uart_task_attr.task_name = (hi_char*)"task_uart";
+    if (hi_task_create(&task_uart_id, &uart_task_attr, Task_Uart, HI_NULL) != HI_ERR_SUCCESS) {
         printf("Falied to create uart demo task!\n");
     }
 }
@@ -37,7 +50,11 @@ void *Task_Uart(void *param)
     for (;;) {
         /* 串口读，记录帧长度 */
         Uart_Rec_Buff_len = hi_uart_read(HI_UART_IDX_1, Uart_Buff_Temp, UART_BUFF_SIZE);
+        // for(int t=0;t<11;t++)
+        //     printf(Uart_Buff_Temp[t], "\n");
         if (Uart_Rec_Buff_len > 0) {  // 有数据进来
+                //printf("Entry Uart *****  %d *****\n ", Uart_Rec_Buff_len, "\n");
+
             if (Uart_Receive_Flag == HI_FALSE) {
                 memcpy_s(Uart_Rec_Buffer, Uart_Rec_Buff_len, Uart_Buff_Temp, Uart_Rec_Buff_len);
                 Uart_Receive_Flag = HI_TRUE;

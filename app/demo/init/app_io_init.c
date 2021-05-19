@@ -1,6 +1,23 @@
+/*
+ * Copyright (c) 2020 HiSilicon (Shanghai) Technologies CO., LIMITED.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 #include <hi_io.h>
 #include <hi3861_platform.h>
 #include <hi_gpio.h>
+#include <hisignalling_protocol.h>
+
 
 hi_void app_io_set_gpio2_clkout_enable(hi_bool enable)
 {
@@ -33,8 +50,15 @@ hi_void app_io_init(hi_void)
 
 #ifdef CONFIG_UART1_SUPPORT
     /* Configure UART1 as the AT command serial port. */
+    /*ROBOT_BOARD*/
+#ifdef ROBOT_BOARD
     hi_io_set_func(HI_IO_NAME_GPIO_5, HI_IO_FUNC_GPIO_5_UART1_RXD); /* uart1 rx */
     hi_io_set_func(HI_IO_NAME_GPIO_6, HI_IO_FUNC_GPIO_6_UART1_TXD); /* uart1 tx */
+    /*IOT_BOARD*/
+#elif defined (EXPANSION_BOARD) 
+    hi_io_set_func(HI_IO_NAME_GPIO_1, HI_IO_FUNC_GPIO_1_UART1_RXD); /* uart1 rx */
+    hi_io_set_func(HI_IO_NAME_GPIO_0, HI_IO_FUNC_GPIO_0_UART1_TXD); /* uart1 tx */
+#endif  
 #endif
 
 #ifdef CONFIG_UART2_SUPPORT
@@ -56,8 +80,8 @@ hi_void app_io_init(hi_void)
     /* I2C MUX: */
 #ifdef CONFIG_I2C_SUPPORT
     /* The I2C I/O multiplexing mode can also be 3/4 or 9/10 based on the product design. */
-    hi_io_set_func(HI_IO_NAME_GPIO_13, HI_IO_FUNC_GPIO_13_I2C0_SDA);
-    hi_io_set_func(HI_IO_NAME_GPIO_14, HI_IO_FUNC_GPIO_14_I2C0_SCL);
+    hi_io_set_func(HI_IO_NAME_GPIO_0, HI_IO_FUNC_GPIO_0_I2C1_SDA);
+    hi_io_set_func(HI_IO_NAME_GPIO_1, HI_IO_FUNC_GPIO_1_I2C1_SCL);
 #endif
 
     /* PWM MUX: */
@@ -90,8 +114,5 @@ hi_void app_io_init(hi_void)
     (hi_void)hi_io_set_pull(HI_IO_NAME_GPIO_13, HI_IO_PULL_UP);
     (hi_void)hi_io_set_pull(HI_IO_NAME_GPIO_14, HI_IO_PULL_UP);
 #endif
-    /*led Control Demo GPIO init config*/
-    hi_io_set_func(HI_IO_NAME_GPIO_9, HI_IO_FUNC_GPIO_9_GPIO);
-    hi_gpio_set_dir(HI_GPIO_IDX_9, HI_GPIO_DIR_OUT);
 }
 

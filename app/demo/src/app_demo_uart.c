@@ -14,7 +14,7 @@
  */
 
 #include <app_demo_uart.h>
-//#include <hisignalling_protocol.h>
+#include <hisignalling_protocol.h>
 #include <hi_stdlib.h>
 
 hi_u32   g_uart_demo_task_id = 0;
@@ -30,11 +30,18 @@ static hi_void *uart_demo_task(hi_void *param)
 
     for (;;) {
         g_uart_len = hi_uart_read(DEMO_UART_NUM, uart_buff, UART_BUFF_SIZE);
+        printf("Entry Uart ***** %d  ***** ", g_uart_len);
+
         if (g_uart_len > 0) { 
             if (g_uart_receive_flag == HI_FALSE) {
                 memcpy_s(g_receive_uart_buff, g_uart_len, uart_buff, g_uart_len);
                 g_uart_receive_flag = HI_TRUE;
             }
+            printf("%d\n", g_receive_uart_buff[3]);
+            printf("%d\n", g_receive_uart_buff[4]);
+            printf("%d\n", g_receive_uart_buff[5]);
+            printf("%d\n", g_receive_uart_buff[6]);
+
         }
         hi_sleep(20); /* sleep 20ms */
     }

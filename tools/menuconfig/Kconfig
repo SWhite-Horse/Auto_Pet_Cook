@@ -60,16 +60,8 @@
             select FILE_SYSTEM_SUPPORT
             help
                 Support TEE HUKS interface.
-        config TEE_HUKS_DEMO_SUPPORT
-            bool "TEE HUKS demo support"
-            default n
-            select FILE_SYSTEM_SUPPORT
-            select TEE_HUKS_SUPPORT
-            help
-                Support TEE HUKS DEMO interface.
         config FLASH_ENCRYPT_SUPPORT
-            bool "FLASH ENCRYPT support(only apply in WIFI CHIP_PKT_32K)"
-            default n
+            bool "FLASH ENCRYPT support"
             help
                 Support encrypt code and data.
     endmenu
@@ -85,7 +77,7 @@
     menu "BSP Settings"
         config I2C_SUPPORT
             bool "i2c driver support"
-            default y
+            default n
             help
                 i2c driver support.
 
@@ -139,7 +131,7 @@
 
         config AT_SUPPORT
             bool "Enable AT command"
-            default n
+            default y
             help
                 enable at command.
         config FILE_SYSTEM_SUPPORT
@@ -170,6 +162,7 @@
             default n
             help
                 enable the option to support WPS in WPA.
+
         choice
             prompt "Authentication Option of Radio Parameters"
             default CE_SUPPORT
@@ -179,28 +172,13 @@
 
             config FCC_SUPPORT
             bool "FCC Authentication"
-
-            config MAX_POWER_SUPPORT
-            bool "Max Power"
         endchoice
 
         config MESH_SUPPORT
-            bool "Enable MESH(only apply in WIFI CHIP_PKT_32K)"
+            bool "Enable MESH"
             default n
             help
                 Enable the option to compile mesh module.
-
-        config WPA3_SUPPORT
-            bool "Enable WPA3"
-            default n
-            help
-                enable the option to support WPA3 in WPA.
-
-        config QUICK_SEND_MODE
-            bool "Enable quick send mode"
-            default n
-            help
-                Enable quick send mode.
     endmenu
 
     menu "Third Party library"
@@ -225,7 +203,7 @@
 
         config MQTT
             bool "MQTT support"
-            default n
+            default y
             help
                 Enable the option to compile mqtt module.
 
@@ -284,8 +262,22 @@
             default n
             help
                 Enable the option to compile hilink module.
-    endmenu
+        choice LINK
+        prompt "HISTREAMING_SUPPORT" 
+            default LINK_NULL 
+            config LINK_NULL
+                bool "LINK_NULL"
+                help
+                    Disable the option to compile histreaming module.   
 
+            config HISTREAMING_SUPPORT
+                bool "Histreaming support"
+                select LIBCOAP
+                help
+                    Enable the option to compile histreaming module.     
+        endchoice                     
+    endmenu
+    
     menu "Debug Log Settings"
         config DIAG_SUPPORT
             bool "Enable debug log"

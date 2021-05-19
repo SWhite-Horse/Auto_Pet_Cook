@@ -1,22 +1,7 @@
 #!/usr/bin/env python3
 # coding=utf-8
 
-"""
-* Copyright (c) 2020 HiSilicon (Shanghai) Technologies CO., LIMITED.
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*
-* Description: SCons Compile environment init.
-"""
+
 
 import os
 import sys
@@ -61,6 +46,7 @@ module_dir = {
     'mqtt': os.path.join('third_party', 'paho.mqtt.c'),
     'mbedtls': os.path.join('third_party', 'mbedtls'),
     'coap': os.path.join('third_party', 'libcoap'),
+    'histreaming': os.path.join('components', 'histreaming'),
     'at': os.path.join('components', 'at'),
     'iperf': os.path.join('components', 'iperf2'),
     'cjson': os.path.join('third_party', 'cjson'),
@@ -151,6 +137,7 @@ proj_lib_cfg = {
     'mbedtls':{'mbedtls':['library']},
     'mqtt':{'mqtt':['src']},
     'coap':{'coap':['src']},
+    'histreaming':{'histreaming':['src']},
     'at':{'at':['src']},
     'iperf':{'iperf':['src']},
     'cjson': {
@@ -235,6 +222,7 @@ proj_environment = {
         ],
         'at':['_PRE_WLAN_FEATURE_MFG_TEST'],
         'coap':['WITH_LWIP', 'MEMP_USE_CUSTOM_POOLS=1'],
+        'histreaming':[],
         'cjson':[],
         'lwip':['WITH_LWIP', 'LWIP_NOASSERT', '__LITEOS__', 'LIB_CONFIGURABLE', ('LWIP_ENABLE_DIAG_CMD', '0'), 'LWIP_NETIF_DEFAULT_LINK_DOWN=1', 'LWIP_HI3861_THREAD_SLEEP=1',],
 
@@ -278,6 +266,7 @@ proj_environment = {
         'sys':['-Werror', '-fsigned-char'],
         'mqtt':['-funsigned-char'],
         'coap':['-fsigned-char'],
+        'histreaming':[],
         'lwip':['-fsigned-char'],
         'wpa':['-funsigned-char'],
     },
@@ -301,6 +290,8 @@ proj_environment = {
         'mbedtls':[],
 
         'coap':[],
+
+        'histreaming':[],
 
         'at':[
             os.path.join('targets', 'hi3861v100', 'commons'),
@@ -374,6 +365,9 @@ proj_environment = {
         'coap':[
             os.path.join('#', 'third_party', 'libcoap'),
             os.path.join('#', 'third_party', 'libcoap', 'include', 'coap2'),
+        ],
+        'histreaming':[
+            os.path.join('#', 'components', 'histreaming', 'src')
         ],
         'cjson':[os.path.join('#', 'third_party', 'cjson'),],
 
@@ -498,6 +492,16 @@ set_config('env_cfg', 'CONFIG_UART0_SUPPORT', 'y', ['CONFIG_UART0_SUPPORT'], 'de
 set_config('env_cfg', 'CONFIG_UART1_SUPPORT', 'y', ['CONFIG_UART1_SUPPORT'], 'defines', 'common')
 set_config('env_cfg', 'CONFIG_UART2_SUPPORT', 'y', ['CONFIG_UART2_SUPPORT'], 'defines', 'common')
 set_config('env_cfg', 'CONFIG_MQTT', 'y', ['MBEDTLS', 'HIGH_PERFORMANCE', 'LOSCFG_CONFIG_MQTT', ('LOSCFG_NET_MQTT', 'y')], 'defines', 'common')
+
+set_config('env_cfg', 'CONFIG_LINK_NULL', 'y', ['CONFIG_LINK_NULL'], 'defines', 'common')
+set_config('module', 'CONFIG_HISTREAMING_SUPPORT', 'y', 'histreaming')
+set_config('env_cfg', 'CONFIG_HISTREAMING_SUPPORT', 'y', ['CONFIG_HISTREAMING_SUPPORT'], 'defines', 'common')
+set_config('env_cfg', 'CONFIG_COLORFUL_LIGHT', 'y', ['CONFIG_COLORFUL_LIGHT'], 'defines', 'common')
+set_config('env_cfg', 'CONFIG_TRAFFIC_LIGHT', 'y', ['CONFIG_TRAFFIC_LIGHT'], 'defines', 'common')
+set_config('env_cfg', 'CONFIG_ENVIRONMENTAL_MONITORING', 'y', ['CONFIG_ENVIRONMENTAL_MONITORING'], 'defines', 'common')
+set_config('env_cfg', 'CONFIG_ENVIRONMENTAL_MONITORING', 'y', ['CONFIG_ENVIRONMENTAL_MONITORING'], 'defines', 'common')
+set_config('env_cfg', 'CONFIG_NFC', 'y', ['CONFIG_NFC'], 'defines', 'common')
+set_config('env_cfg', 'CONFIG_ALL_DEMO', 'y', ['CONFIG_ALL_DEMO'], 'defines', 'common')
 
 set_config('env_cfg', 'CONFIG_TARGET_CHIP_HI3861', 'y', [('PRODUCT_CFG_CHIP_VER_STR', r'\"Hi3861V100\"'), 'CHIP_VER_Hi3861', ('CONFIG_CHIP_PRODUCT_NAME', r'\"Hi3861\"')], 'defines', 'common')
 set_config('env_cfg', 'CONFIG_TARGET_CHIP_HI3861L', 'y', [('PRODUCT_CFG_CHIP_VER_STR', r'\"Hi3861LV100\"'), 'CHIP_VER_Hi3861L', ('CONFIG_CHIP_PRODUCT_NAME', r'\"Hi3861L\"')], 'defines', 'common')
@@ -624,6 +628,12 @@ if scons_usr_bool_option('CONFIG_HILINK') == 'y':
     os_lib_path.append(os.path.join('components', 'hilink', 'lib'))
 set_config('module', 'CONFIG_HILINK', 'y', 'hilink')
 set_config('env_cfg', 'CONFIG_HILINK', 'y', ['CONFIG_HILINK'], 'defines', 'common')
+
+# -------------------------------histreaming support-------------------------------
+if scons_usr_bool_option('CONFIG_HISTREAMING_SUPPORT') == 'y':
+    os_lib_path.append(os.path.join('components', 'histreaming', 'lib'))
+set_config('module', 'CONFIG_HISTREAMING_SUPPORT', 'y', 'histreaming')
+set_config('env_cfg', 'CONFIG_HISTREAMING_SUPPORT', 'y', ['CONFIG_HISTREAMING_SUPPORT'], 'defines', 'common')
 
 # -------------------------------OHOS support-------------------------------
 if scons_get_cfg_val('CONFIG_OHOS') == 'y':
